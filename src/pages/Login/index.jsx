@@ -29,7 +29,7 @@ export const LoginUser = () => {
     ApiBase.post("/sessions", data)
       .then((res) => {
         console.log(res.data);
-        //ss@ggggggg.com Teste1@
+        //ss@ggggggg.com  Teste1@
         navigate("/dashboard");
         window.localStorage.clear();
         window.localStorage.setItem("@KenzieHub:", res.data.token);
