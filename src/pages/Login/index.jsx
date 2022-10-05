@@ -26,7 +26,6 @@ export const LoginUser = () => {
   const navigate = useNavigate();
 
   const onSubmitForm = (data) => {
-    // console.log(data);
     ApiBase.post("/sessions", data)
       .then((res) => {
         console.log(res.data);
