@@ -175,13 +175,13 @@ export const RegisterUser = () => {
           <div>
             <label>Selecionar módulo</label>
             <select {...register("course_module")}>
-              <option value="Primeiro Módulo">
+              <option value="Primeiro Módulo (Frontend iniciante)">
                 Primeiro Módulo (Frontend iniciante)
               </option>
-              <option value="Segundo Módulo">
+              <option value="Segundo Módulo (Frontend intermediario)">
                 Segundo Módulo (Frontend intermediario)
               </option>
-              <option value="Terceiro Módulo">
+              <option value="Terceiro Módulo (Frontend avançado)">
                 Terceiro Módulo (Frontend avançado)
               </option>
             </select>

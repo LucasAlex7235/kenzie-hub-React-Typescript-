@@ -2,7 +2,7 @@ import { Conatiner, FormLogin } from "./style";
 import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { ApiBase } from "../../service/api";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -13,6 +13,8 @@ const validationSchema = yup.object().shape({
 });
 
 export const LoginUser = () => {
+  const clearToken = window.localStorage.clear();
+
   const {
     register,
     handleSubmit,
@@ -21,12 +23,15 @@ export const LoginUser = () => {
     resolver: yupResolver(validationSchema),
   });
 
+  const navigate = useNavigate();
+
   const onSubmitForm = (data) => {
     // console.log(data);
     ApiBase.post("/sessions", data)
       .then((res) => {
         console.log(res.data);
         //ss@ggggggg.com Teste1@
+        navigate("/dashboard");
         window.localStorage.clear();
         window.localStorage.setItem("@KenzieHub:", res.data.token);
       })
