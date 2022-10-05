@@ -57,6 +57,7 @@ export const FormLogin = styled.form`
     color: var(--grey-0);
 
     width: 100%;
+    height: 84px;
 
     & label {
       font-size: var(--headline);
@@ -79,6 +80,33 @@ export const FormLogin = styled.form`
         color: var(--grey-0);
       }
     }
+
+    & span {
+      font-size: var(--headline);
+      font-weight: 600;
+      color: var(--negative);
+      animation: incorrect 0.3s ease-in-out;
+      @keyframes incorrect {
+        0% {
+          transform: translateX(0);
+        }
+        20% {
+          transform: translateX(-3px);
+        }
+        40% {
+          transform: translateX(3px);
+        }
+        60% {
+          transform: translateX(-1px);
+        }
+        80% {
+          transform: translateX(1px);
+        }
+        100% {
+          transform: translateX(0);
+        }
+      }
+    }
   }
 
   & button {
@@ -93,6 +121,8 @@ export const FormLogin = styled.form`
     color: var(--white);
 
     font-weight: 500;
+
+    cursor: pointer;
   }
 
   & a {
