@@ -1,4 +1,4 @@
-import { Conatiner, FormLogin } from "./style";
+import { Conatiner, ContainerPassword, FormLogin } from "./style";
 import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -6,6 +6,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { ApiBase } from "../../service/api";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
+import { useState } from "react";
 
 const validationSchema = yup.object().shape({
   email: yup.string().required("Email obrigatório").email("Email inválido!"),
@@ -13,8 +15,13 @@ const validationSchema = yup.object().shape({
 });
 
 export const LoginUser = () => {
-  const clearToken = window.localStorage.clear();
+  const [eye, setEye] = useState(true);
 
+  const eyePassword = () => {
+    eye ? setEye(false) : setEye(true);
+  };
+
+  window.localStorage.clear();
   const {
     register,
     handleSubmit,
@@ -28,17 +35,17 @@ export const LoginUser = () => {
   const onSubmitForm = (data) => {
     ApiBase.post("/sessions", data)
       .then((res) => {
-        console.log(res.data);
-        //ss@ggggggg.com  Teste1@
-        navigate("/dashboard");
-        window.localStorage.clear();
+        setTimeout(() => {
+          navigate("/dashboard");
+          window.location.reload();
+        }, 200);
         window.localStorage.setItem("@KenzieHub:", res.data.token);
       })
       .catch((err) => {
         err &&
           toast.error("Email ou senha incorretos!", {
             position: "top-right",
-            autoClose: 2000,
+            autoClose: 1500,
             hideProgressBar: false,
             closeOnClick: true,
             pauseOnHover: true,
@@ -47,7 +54,6 @@ export const LoginUser = () => {
           });
       });
   };
-  console.log(errors);
 
   return (
     <Conatiner>
@@ -66,11 +72,18 @@ export const LoginUser = () => {
 
         <div>
           <label>Senha</label>
-          <input
-            type="password"
-            placeholder="Digite sua senha"
-            {...register("password")}
-          />
+
+          <main>
+            <input
+              type={eye ? "password" : "text"}
+              placeholder="Digite sua senha"
+              {...register("password")}
+            />
+            <p onClick={eyePassword}>
+              {eye == true ? <AiFillEye /> : <AiFillEyeInvisible />}
+            </p>
+          </main>
+
           {errors.password?.message && <span>{errors.password.message}</span>}
         </div>
 

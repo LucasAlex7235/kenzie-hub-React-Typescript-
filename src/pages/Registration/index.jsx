@@ -3,11 +3,11 @@ import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Link, useNavigate } from "react-router-dom";
-import { useEffect } from "react";
-import { ToastContainer, toast } from "react-toastify";
+import { useEffect, useState } from "react";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { ApiBase } from "../../service/api";
-// import { Link } from "react-router-dom";
+import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 
 const validationPasswordRegexLowerCase = /(?=.*[a-z])/;
 const validationPasswordRegexUpperCase = /(?=.*[A-Z])/;
@@ -32,7 +32,7 @@ const validationSchema = yup.object().shape({
       validationPasswordRegexCharacter,
       `Deve conter ao menos um caractere especial. ex: "*%&"`
     )
-    .min(6, "Deve conter no mínimo de 6 caracteres"),
+    .min(8, "Deve conter no mínimo de 8 caracteres"),
   confirm_password: yup
     .string()
     .required("Confirmação de senha obrigarória")
@@ -44,6 +44,17 @@ const validationSchema = yup.object().shape({
 });
 
 export const RegisterUser = () => {
+  const [eye, setEye] = useState(true);
+  const [eyeConfirm, setEyeConfirm] = useState(true);
+
+  const eyePassword = () => {
+    eye ? setEye(false) : setEye(true);
+  };
+
+  const eyePasswordConfirm = () => {
+    eyeConfirm ? setEyeConfirm(false) : setEyeConfirm(true);
+  };
+
   const {
     register,
     handleSubmit,
@@ -69,7 +80,7 @@ export const RegisterUser = () => {
           });
         setTimeout(() => {
           navigate("/login");
-        }, 3100);
+        }, 1500);
       })
       .catch((err) => {
         err &&
@@ -95,7 +106,7 @@ export const RegisterUser = () => {
       errors.contact) &&
       toast.error("Verifique os campos!", {
         position: "top-right",
-        autoClose: 5000,
+        autoClose: 1500,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
@@ -136,20 +147,34 @@ export const RegisterUser = () => {
           </div>
           <div>
             <label>Senha</label>
-            <input
-              type="password"
-              placeholder="Digite sua senha"
-              {...register("password")}
-            />
+
+            <main>
+              <input
+                type={eye ? "password" : "text"}
+                placeholder="Digite sua senha"
+                {...register("password")}
+              />
+              <p onClick={eyePassword}>
+                {eye == true ? <AiFillEye /> : <AiFillEyeInvisible />}
+              </p>
+            </main>
+
             {errors.password?.message && <span>{errors.password.message}</span>}
           </div>
           <div>
             <label>Confirmar Senha</label>
-            <input
-              type="password"
-              placeholder="Digite novamente sua senha"
-              {...register("confirm_password")}
-            />
+
+            <main>
+              <input
+                type={eyeConfirm ? "password" : "text"}
+                placeholder="Digite sua senha"
+                {...register("confirm_password")}
+              />
+              <p onClick={eyePasswordConfirm}>
+                {eyeConfirm == true ? <AiFillEye /> : <AiFillEyeInvisible />}
+              </p>
+            </main>
+
             {errors.confirm_password?.message && (
               <span>{errors.confirm_password.message}</span>
             )}
@@ -189,7 +214,6 @@ export const RegisterUser = () => {
           </div>
           <button type="submit">Cadastra-se</button>
         </FormLogin>
-        <ToastContainer />
       </Content>
     </Conatiner>
   );

@@ -4,40 +4,59 @@ import { ApiBase } from "../../service/api";
 import {
   BorderBottom,
   Container,
+  ContainerReload,
   Header,
   Main,
+  ReloadPage,
   SectionContent,
   SectionTitle,
 } from "./style";
 
 export const DashboardUser = () => {
-  const [profile, setProfile] = useState({});
-  const token = window.localStorage.getItem("@KenzieHub:");
+  const [profile, setProfile] = useState("");
+  const [reload, setReload] = useState(true);
 
+  const token = window.localStorage.getItem("@KenzieHub:");
   useEffect(() => {
-    ApiBase.get("/profile").then((res) => setProfile(res.data));
+    ApiBase.get("/profile").then((res) => {
+      setProfile(res.data);
+    });
+    setTimeout(() => {
+      setReload(false);
+    }, 2000);
   }, [token]);
 
   return (
     <Container>
       <Main>
-        <Header>
-          <h1>Kenzie Hub</h1>
-          <Link to={"/login"}>Sair</Link>
-        </Header>
-        <BorderBottom />
-        <SectionTitle>
-          <h2>Olá, {profile.name} </h2>
-          <p>{profile.course_module}</p>
-        </SectionTitle>
-        <BorderBottom />
+        {reload ? (
+          <ContainerReload>
+            <ReloadPage>
+              <div></div>
+            </ReloadPage>
+          </ContainerReload>
+        ) : (
+          <>
+            <Header>
+              <h1>Kenzie Hub</h1>
+              <Link to={"/login"}>Sair</Link>
+            </Header>
+            <BorderBottom />
+            <SectionTitle>
+              <h2>{profile ? `Olá, ${profile.name}` : "Aguarde"} </h2>
+              <p>{profile?.course_module}</p>
+            </SectionTitle>
+            <BorderBottom />
 
-        <SectionContent>
-          <h3>Que pena! Estamos em desenvolvimento :(</h3>
-          <p>
-            Nossa aplicação está em desenvolvimento, em breve teremos novidades
-          </p>
-        </SectionContent>
+            <SectionContent>
+              <h3>Que pena! Estamos em desenvolvimento :(</h3>
+              <p>
+                Nossa aplicação está em desenvolvimento, em breve teremos
+                novidades
+              </p>
+            </SectionContent>
+          </>
+        )}
       </Main>
     </Container>
   );

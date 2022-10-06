@@ -1,6 +1,12 @@
-import { RoutesUrl } from "./components/Routes";
+import { ToastContainer } from "react-toastify";
+import { RoutesUrl } from "./Routes";
 const App = () => {
-  return <RoutesUrl />;
+  return (
+    <>
+      <RoutesUrl />
+      <ToastContainer />
+    </>
+  );
 };
 
 export default App;

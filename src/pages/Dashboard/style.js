@@ -12,6 +12,49 @@ export const Main = styled.main`
   max-width: 1024px;
 `;
 
+export const ReloadPage = styled.div`
+  width: 90px;
+  height: 90px;
+  border: 8px solid var(--grey-0);
+  border-top: 8px solid var(--color-primary);
+  border-radius: 50%;
+
+  position: relative;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  animation: reloadDashboard 1.5s infinite;
+
+  & div {
+    width: 90px;
+    height: 90px;
+    position: absolute;
+
+    /* opacity: 0.5; */
+
+    border: 6px solid transparent;
+    border-right: 8px solid var(--color-primary);
+    border-radius: 50%;
+    animation: reloadDashboard 2s infinite linear;
+  }
+
+  @keyframes reloadDashboard {
+    to {
+      transform: rotate(1turn);
+    }
+  }
+`;
+
+export const ContainerReload = styled.div`
+  height: 100vh;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
 export const Header = styled.header`
   display: flex;
   justify-content: space-between;

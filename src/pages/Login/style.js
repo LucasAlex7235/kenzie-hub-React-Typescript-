@@ -63,11 +63,30 @@ export const FormLogin = styled.form`
       font-size: var(--headline);
     }
 
+    & main {
+      background-color: var(--grey-2);
+
+      padding-right: 13px;
+
+      border-radius: 4px;
+
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      & input {
+        width: 89%;
+        background-color: var(--grey-2);
+      }
+      svg {
+        cursor: pointer;
+      }
+    }
+
     & input {
       outline: none;
-
       border: 1px solid transparent;
-      /* border: 2px solid var(--grey-0); */
+
       border-radius: 4px;
 
       background-color: var(--grey-2);

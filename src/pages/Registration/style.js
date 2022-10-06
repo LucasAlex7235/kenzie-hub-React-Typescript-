@@ -8,6 +8,7 @@ export const Conatiner = styled.div`
   align-items: center;
 
   height: 100vh;
+  overflow-y: hidden;
 
   background-color: var(--black);
   color: var(--grey-0);
@@ -131,6 +132,26 @@ export const FormLogin = styled.form`
 
     & label {
       font-size: var(--headline);
+    }
+
+    & main {
+      background-color: var(--grey-2);
+
+      padding-right: 13px;
+
+      border-radius: 4px;
+
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      & input {
+        width: 89%;
+        background-color: var(--grey-2);
+      }
+      svg {
+        cursor: pointer;
+      }
     }
 
     & input {
