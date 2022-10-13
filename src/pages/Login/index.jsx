@@ -15,13 +15,7 @@ const validationSchema = yup.object().shape({
 });
 
 export const LoginUser = () => {
-  const { eye, eyePassword, onSubmitForm } = useContext(AuthContext);
-  // const { onSubmitForm } = useContext(AuthContext);
-  // const [eye, setEye] = useState(true);
-
-  // const eyePassword = () => {
-  //   eye ? setEye(false) : setEye(true);
-  // };
+  const { eye, eyePassword, onSubmitFormLogin } = useContext(AuthContext);
 
   window.localStorage.clear();
   const {
@@ -32,35 +26,10 @@ export const LoginUser = () => {
     resolver: yupResolver(validationSchema),
   });
 
-  // const navigate = useNavigate();
-
-  // const onSubmitForm = (data) => {
-  //   ApiBase.post("/sessions", data)
-  //     .then((res) => {
-  //       setTimeout(() => {
-  //         navigate("/dashboard");
-  //         window.location.reload();
-  //       }, 200);
-  //       window.localStorage.setItem("@KenzieHub:", res.data.token);
-  //     })
-  //     .catch((err) => {
-  //       err &&
-  //         toast.error("Email ou senha incorretos!", {
-  //           position: "top-right",
-  //           autoClose: 1500,
-  //           hideProgressBar: false,
-  //           closeOnClick: true,
-  //           pauseOnHover: true,
-  //           draggable: true,
-  //           progress: undefined,
-  //         });
-  //     });
-  // };
-
   return (
     <Conatiner>
       <h1>Kenzie Hub</h1>
-      <FormLogin onSubmit={handleSubmit(onSubmitForm)}>
+      <FormLogin onSubmit={handleSubmit(onSubmitFormLogin)}>
         <h2>Login</h2>
         <div>
           <label>Email</label>
@@ -91,7 +60,7 @@ export const LoginUser = () => {
 
         <button type="submit">Entrar</button>
         <span>Ainda não possui uma conta?</span>
-        {/* <button type="submit">Cadastre-se</button>  */}
+
         <Link to="/register">Cadastra-se</Link>
       </FormLogin>
       <ToastContainer />

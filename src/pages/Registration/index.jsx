@@ -46,8 +46,13 @@ const validationSchema = yup.object().shape({
 });
 
 export const RegisterUser = () => {
-  const { eye, eyeConfirm, eyePassword, eyePasswordConfirm } =
-    useContext(AuthContext);
+  const {
+    eyeRegister,
+    eyeConfirm,
+    eyePasswordRegister,
+    eyePasswordConfirm,
+    onSubmitFormRegister,
+  } = useContext(AuthContext);
 
   const {
     register,
@@ -58,37 +63,6 @@ export const RegisterUser = () => {
   });
 
   const navigate = useNavigate();
-
-  const onSubmitForm = (data) => {
-    ApiBase.post("/users", data)
-      .then((res) => {
-        res.data &&
-          toast.success("Conta criada com sucesso", {
-            position: "top-right",
-            autoClose: 2000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-          });
-        setTimeout(() => {
-          navigate("/login");
-        }, 1500);
-      })
-      .catch((err) => {
-        err &&
-          toast.error("Conta já existente!", {
-            position: "top-right",
-            autoClose: 2000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-          });
-      });
-  };
 
   const errorToastify = () => {
     (errors.email ||
@@ -117,7 +91,7 @@ export const RegisterUser = () => {
           <h1>Kenzie Hub</h1>
           <Link to="/login">Voltar</Link>
         </Header>
-        <FormLogin onSubmit={handleSubmit(onSubmitForm)}>
+        <FormLogin onSubmit={handleSubmit(onSubmitFormRegister)}>
           <h2>Crie sua conta</h2>
           <span>Rapido e grátis, vamos nessa</span>
           <div>
@@ -143,12 +117,12 @@ export const RegisterUser = () => {
 
             <main>
               <input
-                type={eye ? "password" : "text"}
+                type={eyeRegister ? "password" : "text"}
                 placeholder="Digite sua senha"
                 {...register("password")}
               />
-              <p onClick={eyePassword}>
-                {eye == true ? <AiFillEye /> : <AiFillEyeInvisible />}
+              <p onClick={eyePasswordRegister}>
+                {eyeRegister == true ? <AiFillEye /> : <AiFillEyeInvisible />}
               </p>
             </main>
 

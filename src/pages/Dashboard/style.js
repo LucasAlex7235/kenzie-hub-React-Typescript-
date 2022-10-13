@@ -4,6 +4,7 @@ export const Container = styled.div`
   height: 100vh;
 
   background-color: var(--black);
+  overflow-y: auto;
 `;
 
 export const Main = styled.main`
