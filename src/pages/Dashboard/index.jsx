@@ -1,6 +1,8 @@
-import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { useContext, useEffect, useState } from "react";
+import { Link, Navigate } from "react-router-dom";
+import { AuthContext } from "../../context/Auth/AuthContext";
 import { ApiBase } from "../../service/api";
+import { TodoListProgramming } from "../TodoList";
 import {
   BorderBottom,
   Container,
@@ -12,53 +14,61 @@ import {
   SectionTitle,
 } from "./style";
 
-export const DashboardUser = () => {
+export const DashboardUser = ({ children }) => {
   const [profile, setProfile] = useState("");
   const [reload, setReload] = useState(true);
+  // const [techs, setTechs] = useState("");
 
   const token = window.localStorage.getItem("@KenzieHub:");
+
   useEffect(() => {
-    ApiBase.get("/profile").then((res) => {
-      setProfile(res.data);
-    });
-    setTimeout(() => {
-      setReload(false);
-    }, 2000);
-  }, [token]);
+    const userDash = async () => {
+      const response = await ApiBase.get("/profile");
+
+      token ? setReload(false) : setReload(true);
+      const { data } = response;
+      setProfile(data);
+      // setTechs(data.techs);
+
+      console.log(data);
+    };
+
+    userDash();
+  }, []);
 
   return (
-    <Container>
-      <Main>
-        {reload ? (
-          <ContainerReload>
-            <ReloadPage>
-              <div></div>
-            </ReloadPage>
-          </ContainerReload>
-        ) : (
-          <>
-            <Header>
-              <h1>Kenzie Hub</h1>
-              <Link to={"/login"}>Sair</Link>
-            </Header>
-            <BorderBottom />
-            <SectionTitle>
-              <h2>{profile ? `Olá, ${profile.name}` : "Aguarde"} </h2>
-              <p>{profile?.course_module}</p>
-            </SectionTitle>
-            <BorderBottom />
+    <>
+      {token ? (
+        <Container>
+          <Main>
+            {reload ? (
+              <ContainerReload>
+                <ReloadPage>
+                  <div></div>
+                </ReloadPage>
+              </ContainerReload>
+            ) : (
+              <>
+                <Header>
+                  <h1>Kenzie Hub</h1>
+                  <Link to={"/login"}>Sair</Link>
+                </Header>
+                <BorderBottom />
+                <SectionTitle>
+                  <h2>{profile ? `Olá, ${profile.name}` : "Aguarde"} </h2>
+                  <p>{profile?.course_module}</p>
+                </SectionTitle>
+                <BorderBottom />
 
-            <SectionContent>
-              <h3>Que pena! Estamos em desenvolvimento :(</h3>
-              <p>
-                Nossa aplicação está em desenvolvimento, em breve teremos
-                novidades
-              </p>
-            </SectionContent>
-          </>
-        )}
-      </Main>
-    </Container>
+                <TodoListProgramming />
+              </>
+            )}
+          </Main>
+        </Container>
+      ) : (
+        <Navigate to="/login" />
+      )}
+    </>
   );
 };
 

@@ -3,11 +3,13 @@ import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Link, useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { ApiBase } from "../../service/api";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
+
+import { AuthContext } from "../../context/Auth/AuthContext";
 
 const validationPasswordRegexLowerCase = /(?=.*[a-z])/;
 const validationPasswordRegexUpperCase = /(?=.*[A-Z])/;
@@ -44,16 +46,18 @@ const validationSchema = yup.object().shape({
 });
 
 export const RegisterUser = () => {
-  const [eye, setEye] = useState(true);
-  const [eyeConfirm, setEyeConfirm] = useState(true);
+  const { eye, eyeConfirm, eyePassword, eyePasswordConfirm } =
+    useContext(AuthContext);
+  // const [eye, setEye] = useState(true);
+  // const [eyeConfirm, setEyeConfirm] = useState(true);
 
-  const eyePassword = () => {
-    eye ? setEye(false) : setEye(true);
-  };
+  // const eyePassword = () => {
+  //   eye ? setEye(false) : setEye(true);
+  // };
 
-  const eyePasswordConfirm = () => {
-    eyeConfirm ? setEyeConfirm(false) : setEyeConfirm(true);
-  };
+  // const eyePasswordConfirm = () => {
+  //   eyeConfirm ? setEyeConfirm(false) : setEyeConfirm(true);
+  // };
 
   const {
     register,

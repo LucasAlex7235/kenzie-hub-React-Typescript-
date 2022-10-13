@@ -2,12 +2,12 @@ import { Conatiner, ContainerPassword, FormLogin } from "./style";
 import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { Link, useNavigate } from "react-router-dom";
-import { ApiBase } from "../../service/api";
-import { ToastContainer, toast } from "react-toastify";
+import { Link } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
-import { useState } from "react";
+import { useContext } from "react";
+import { AuthContext } from "../../context/Auth/AuthContext";
 
 const validationSchema = yup.object().shape({
   email: yup.string().required("Email obrigatório").email("Email inválido!"),
@@ -15,11 +15,13 @@ const validationSchema = yup.object().shape({
 });
 
 export const LoginUser = () => {
-  const [eye, setEye] = useState(true);
+  const { eye, eyePassword, onSubmitForm } = useContext(AuthContext);
+  // const { onSubmitForm } = useContext(AuthContext);
+  // const [eye, setEye] = useState(true);
 
-  const eyePassword = () => {
-    eye ? setEye(false) : setEye(true);
-  };
+  // const eyePassword = () => {
+  //   eye ? setEye(false) : setEye(true);
+  // };
 
   window.localStorage.clear();
   const {
@@ -30,30 +32,30 @@ export const LoginUser = () => {
     resolver: yupResolver(validationSchema),
   });
 
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
-  const onSubmitForm = (data) => {
-    ApiBase.post("/sessions", data)
-      .then((res) => {
-        setTimeout(() => {
-          navigate("/dashboard");
-          window.location.reload();
-        }, 200);
-        window.localStorage.setItem("@KenzieHub:", res.data.token);
-      })
-      .catch((err) => {
-        err &&
-          toast.error("Email ou senha incorretos!", {
-            position: "top-right",
-            autoClose: 1500,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-          });
-      });
-  };
+  // const onSubmitForm = (data) => {
+  //   ApiBase.post("/sessions", data)
+  //     .then((res) => {
+  //       setTimeout(() => {
+  //         navigate("/dashboard");
+  //         window.location.reload();
+  //       }, 200);
+  //       window.localStorage.setItem("@KenzieHub:", res.data.token);
+  //     })
+  //     .catch((err) => {
+  //       err &&
+  //         toast.error("Email ou senha incorretos!", {
+  //           position: "top-right",
+  //           autoClose: 1500,
+  //           hideProgressBar: false,
+  //           closeOnClick: true,
+  //           pauseOnHover: true,
+  //           draggable: true,
+  //           progress: undefined,
+  //         });
+  //     });
+  // };
 
   return (
     <Conatiner>

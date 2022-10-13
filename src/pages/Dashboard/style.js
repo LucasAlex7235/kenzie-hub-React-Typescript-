@@ -121,6 +121,7 @@ export const SectionContent = styled.section`
   display: flex;
   flex-direction: column;
   align-items: center;
+  gap: 21px;
 
   padding: 35px 0;
 

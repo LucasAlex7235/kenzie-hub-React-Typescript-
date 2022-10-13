@@ -1,9 +1,16 @@
 import { ToastContainer } from "react-toastify";
+import { AuthValidation } from "./context/Auth/AuthContext";
+import { DashboardModal } from "./context/Dashboard/DashboardContext";
+// import { LoginUserContext } from "./context/Login/";
 import { RoutesUrl } from "./Routes";
 const App = () => {
   return (
     <>
-      <RoutesUrl />
+      <AuthValidation>
+        <DashboardModal>
+          <RoutesUrl />
+        </DashboardModal>
+      </AuthValidation>
       <ToastContainer />
     </>
   );
