@@ -48,16 +48,6 @@ const validationSchema = yup.object().shape({
 export const RegisterUser = () => {
   const { eye, eyeConfirm, eyePassword, eyePasswordConfirm } =
     useContext(AuthContext);
-  // const [eye, setEye] = useState(true);
-  // const [eyeConfirm, setEyeConfirm] = useState(true);
-
-  // const eyePassword = () => {
-  //   eye ? setEye(false) : setEye(true);
-  // };
-
-  // const eyePasswordConfirm = () => {
-  //   eyeConfirm ? setEyeConfirm(false) : setEyeConfirm(true);
-  // };
 
   const {
     register,
@@ -98,7 +88,6 @@ export const RegisterUser = () => {
             progress: undefined,
           });
       });
-    // console.log(data);
   };
 
   const errorToastify = () => {

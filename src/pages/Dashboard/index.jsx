@@ -17,7 +17,6 @@ import {
 export const DashboardUser = ({ children }) => {
   const [profile, setProfile] = useState("");
   const [reload, setReload] = useState(true);
-  // const [techs, setTechs] = useState("");
 
   const token = window.localStorage.getItem("@KenzieHub:");
 
@@ -28,9 +27,6 @@ export const DashboardUser = ({ children }) => {
       token ? setReload(false) : setReload(true);
       const { data } = response;
       setProfile(data);
-      // setTechs(data.techs);
-
-      console.log(data);
     };
 
     userDash();
