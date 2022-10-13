@@ -81,6 +81,14 @@ export const Header = styled.header`
     font-weight: 500;
 
     border-radius: 4px;
+
+    transition: 0.4s;
+
+    :hover {
+      opacity: 0.7;
+
+      transition: 0.4s;
+    }
   }
 `;
 

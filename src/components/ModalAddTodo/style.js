@@ -2,6 +2,7 @@ import styled from "styled-components";
 
 export const ModalBackground = styled.div`
   position: absolute;
+  z-index: 1;
   top: 0;
   left: 0;
 
@@ -13,12 +14,6 @@ export const ModalBackground = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-
-  /* & div {
-    background-color: white;
-
-    width: 379px;
-  } */
 `;
 
 export const Modal = styled.div`
@@ -28,6 +23,19 @@ export const Modal = styled.div`
 
   width: 379px;
   border-radius: 4px;
+  animation: onModal linear 0.3s;
+
+  @keyframes onModal {
+    0% {
+      transform: translateY(-150%) scale(0.8);
+    }
+    80% {
+      transform: translateY(0%) scale(0.8);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
 
   & header {
     display: flex;
@@ -130,6 +138,16 @@ export const Form = styled.form`
     padding: 1px 0;
 
     cursor: pointer;
+
+    transition: 0.4s;
+
+    :hover {
+      transition: 0.4s;
+
+      opacity: 0.7;
+
+      transform: scale(1.02);
+    }
   }
 `;
 
@@ -146,6 +164,16 @@ export const ButtonFooterModal = styled.div`
     padding: 1px 36px;
 
     width: auto;
+
+    transition: 0.4s;
+
+    :hover {
+      transition: 0.4s;
+
+      background-color: var(--color-primary-focus);
+
+      transform: scale(1.04);
+    }
   }
 
   & button + button {

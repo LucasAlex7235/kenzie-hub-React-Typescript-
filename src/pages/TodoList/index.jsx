@@ -4,10 +4,11 @@ import { RiDeleteBin5Line } from "react-icons/ri";
 import { ModalAddList } from "../../components/ModalAddTodo";
 import { useContext, useState } from "react";
 import { DashboardContext } from "../../context/Dashboard/DashboardContext";
+import "animate.css";
 
 export const TodoListProgramming = () => {
-  const { techs, setEditTech, setEditDeletData } = useContext(DashboardContext);
-  const [modalAdd, setModalAdd] = useState(null);
+  const { techs, setEditTech, setEditDeletData, modalAdd, setModalAdd } =
+    useContext(DashboardContext);
 
   const onModalAdd = () => {
     setEditTech(false);
@@ -25,11 +26,12 @@ export const TodoListProgramming = () => {
         <button onClick={onModalAdd}>+</button>
       </HeaderTodo>
       <UlTodo>
-        {modalAdd && <ModalAddList setModal={setModalAdd} />}
+        {modalAdd && <ModalAddList />}
         {techs &&
           techs.map((tech) => {
             return (
               <li
+                class="animate__animated animate__fadeIn"
                 onClick={() => {
                   editModal();
                   setEditDeletData(tech);

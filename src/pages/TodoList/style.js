@@ -25,6 +25,14 @@ export const HeaderTodo = styled.header`
     align-items: center;
 
     cursor: pointer;
+
+    transition: 0.4s;
+
+    :hover {
+      transition: 0.4s;
+
+      opacity: 0.7;
+    }
   }
 `;
 
@@ -61,6 +69,10 @@ export const UlTodo = styled.ul`
 
   background-color: var(--grey-3);
 
+  .animate__fadeIn {
+    animation-duration: 2s;
+  }
+
   & li {
     display: flex;
     justify-content: space-between;
@@ -74,6 +86,15 @@ export const UlTodo = styled.ul`
     color: var(--grey-0);
 
     font-weight: 700;
+
+    cursor: pointer;
+
+    transition: 0.4s;
+
+    :hover {
+      background-color: var(--black);
+      transition: 0.4s;
+    }
 
     & span {
       color: var(--grey-1);

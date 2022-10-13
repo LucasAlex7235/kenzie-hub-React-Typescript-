@@ -1,90 +1,29 @@
 import { ButtonFooterModal, Form, Modal, ModalBackground } from "./style";
 import { AiOutlineClose } from "react-icons/ai";
 import { useForm } from "react-hook-form";
-import { ApiBase } from "../../service/api";
-import { toast, ToastContainer } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import { DashboardContext } from "../../context/Dashboard/DashboardContext";
 import { useContext, useState } from "react";
+import "animate.css";
 
-export const ModalAddList = ({ setModal }) => {
+export const ModalAddList = () => {
   const {
     techs,
     setTechs,
     editTech,
+    onSubmitModal,
     editDeletData,
-    deletTechApi,
-    setDeletTechApi,
+    setDeletTechModal,
+    setEditTechModal,
+    setModalAdd,
   } = useContext(DashboardContext);
 
   const [modalError, setModalError] = useState(false);
 
   const { register, handleSubmit } = useForm();
 
-  const onSubmitModal = async (data) => {
-    if (deletTechApi) {
-      try {
-        const deleteTech = await ApiBase.delete(
-          `/users/techs/${editDeletData.id}`
-        );
-        const response = await ApiBase.get("/profile");
-
-        const { techs: techsProfile } = response.data;
-
-        setTechs(techsProfile);
-        setModal(null);
-        setDeletTechApi(false);
-
-        toast.success("Tecnologia deletada com sucesso", {
-          position: "top-right",
-          autoClose: 1500,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "dark",
-        });
-      } catch (err) {
-        console.error(err);
-      }
-    } else {
-      try {
-        const responseAddTech = await ApiBase.post("/users/techs", data);
-
-        const { data: dataBase } = responseAddTech;
-
-        setTechs([...techs, dataBase]);
-        setModal(null);
-
-        toast.success("Tecnologia cadastrada com sucesso", {
-          position: "top-right",
-          autoClose: 1500,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "dark",
-        });
-      } catch (err) {
-        toast.error
-          ? toast.error("Adicione um nome", {
-              position: "top-right",
-              autoClose: 1500,
-              hideProgressBar: false,
-              closeOnClick: true,
-              pauseOnHover: true,
-              draggable: true,
-              progress: undefined,
-              theme: "dark",
-            })
-          : console.error(err);
-      }
-    }
-  };
-
   const closeModal = (e) => {
-    e.target.id && setModal(null);
+    e.target.id && setModalAdd(null);
   };
   return (
     <ModalBackground id="backgroudModal" onClick={closeModal}>
@@ -93,7 +32,7 @@ export const ModalAddList = ({ setModal }) => {
           <h3>Cadastrar Tecnologia</h3>
           <AiOutlineClose
             onClick={() => {
-              setModal(null);
+              setModalAdd(null);
             }}
           />
         </header>
@@ -129,11 +68,18 @@ export const ModalAddList = ({ setModal }) => {
           </label>
           {editTech ? (
             <ButtonFooterModal>
-              <button type="submit">Salvar alterações</button>
               <button
                 type="submit"
                 onClick={() => {
-                  setDeletTechApi(true);
+                  setEditTechModal(true);
+                }}
+              >
+                Salvar alterações
+              </button>
+              <button
+                type="submit"
+                onClick={() => {
+                  setDeletTechModal(true);
                 }}
               >
                 Excluir
