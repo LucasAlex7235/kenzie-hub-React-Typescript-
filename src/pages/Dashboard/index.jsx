@@ -63,8 +63,7 @@ export const DashboardUser = ({ children }) => {
           </Main>
         </Container>
       ) : (
-        // <Navigate to="/login" replace /> Dando erro de carregamento no vercel
-        window.history.back()
+        <Navigate to="/login" replace />
       )}
     </>
   );
