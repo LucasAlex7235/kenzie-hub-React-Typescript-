@@ -21,15 +21,16 @@ export const DashboardUser = ({ children }) => {
   const token = window.localStorage.getItem("@KenzieHub:");
 
   useEffect(() => {
+    token ? setReload(false) : setReload(true);
+
     const userDash = async () => {
       const response = await ApiBase.get("/profile");
 
-      token ? setReload(false) : setReload(true);
       const { data } = response;
       setProfile(data);
     };
 
-    userDash();
+    token && userDash();
   }, []);
 
   return (
@@ -62,21 +63,8 @@ export const DashboardUser = ({ children }) => {
           </Main>
         </Container>
       ) : (
-        <Navigate to="/login" />
+        <Navigate to="/login" replace />
       )}
     </>
   );
 };
-
-/*
-export const DashboardUser = () => {
-    return(
-        <div>
-            <header>
-                <h1></h1>
-                <Link></Link>
-            </header>
-        </div>
-    )
-}
-*/
