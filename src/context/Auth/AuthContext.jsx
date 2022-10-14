@@ -32,7 +32,8 @@ export const AuthValidation = ({ children }) => {
 
       window.localStorage.setItem("@KenzieHub:", token);
 
-      navigate("/dashboard");
+      navigate("/dashboard", { replace: true });
+
       window.location.reload();
     } catch {
       toast.error("Email ou senha incorretos!", {

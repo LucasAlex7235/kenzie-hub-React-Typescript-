@@ -1,4 +1,5 @@
 import { createContext, useEffect, useState } from "react";
+import { Navigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { ApiBase } from "../../service/api";
 
@@ -13,14 +14,19 @@ export const DashboardModal = ({ children }) => {
   const [editTechModal, setEditTechModal] = useState(false);
 
   useEffect(() => {
+    const token = window.localStorage.getItem("@KenzieHub:");
     const userDash = async () => {
       const response = await ApiBase.get("/profile");
 
-      const { techs } = response.data;
-      setTechs(techs);
+      try {
+        const { techs } = response.data;
+        setTechs(techs);
+      } catch {
+        console.log(2);
+      }
     };
 
-    userDash();
+    token && userDash();
   }, []);
 
   const editTechApi = async (data) => {
