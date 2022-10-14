@@ -1,5 +1,4 @@
 import { createContext, useEffect, useState } from "react";
-import { Navigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { ApiBase } from "../../service/api";
 
@@ -21,8 +20,8 @@ export const DashboardModal = ({ children }) => {
       try {
         const { techs } = response.data;
         setTechs(techs);
-      } catch {
-        console.log(2);
+      } catch (err) {
+        console.error(err);
       }
     };
 
