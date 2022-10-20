@@ -71,6 +71,7 @@ export const DashboardUser = ({ children }: iDashboardProps) => {
         </Container>
       ) : (
         <Navigate to="/login" replace />
+        // window.history.back()
       )}
     </>
   );

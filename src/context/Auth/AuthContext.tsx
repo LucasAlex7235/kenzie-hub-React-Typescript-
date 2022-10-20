@@ -59,7 +59,6 @@ export const AuthValidation = ({ children }: iLoginRegister) => {
   const navigate = useNavigate();
 
   const onSubmitFormLogin = async (data: iLoginDataBase) => {
-    console.log(data);
     try {
       const response = await ApiBase.post("/sessions", data);
 
