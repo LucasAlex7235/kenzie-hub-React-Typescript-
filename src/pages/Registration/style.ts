@@ -77,7 +77,6 @@ export const FormLogin = styled.form`
 
   @media (min-width: 595px) {
     width: 535px;
-    /* height: 504px; */
 
     padding: 33px 20px;
   }
