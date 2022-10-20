@@ -27,6 +27,10 @@ interface iAddTechDataBase {
   status: string;
 }
 
+interface iResponseApi {
+  techs: iTechs[];
+}
+
 interface iDashboardContext {
   techs: iTechs[];
   setTechs: React.Dispatch<React.SetStateAction<iTechs[]>>;
@@ -54,14 +58,10 @@ export const DashboardModal = ({ children }: iDashboardModalProps) => {
   const [deletTechModal, setDeletTechModal] = useState<boolean>(false);
   const [editTechModal, setEditTechModal] = useState<boolean>(false);
 
-  // useEffect(() => {
-  //   console.log(editDeletData);
-  // }, [editDeletData]);
-
   useEffect(() => {
     const token = window.localStorage.getItem("@KenzieHub:");
     const userDash = async () => {
-      const response = await ApiBase.get("/profile");
+      const response = await ApiBase.get<iResponseApi>("/profile");
 
       try {
         const { techs } = response.data;
@@ -76,11 +76,9 @@ export const DashboardModal = ({ children }: iDashboardModalProps) => {
 
   const editTechApi = async (data: iEditApiDataBase) => {
     try {
-      const deleteTech = await ApiBase.put(
-        `/users/techs/${editDeletData.id}`,
-        data
-      );
-      const response = await ApiBase.get("/profile");
+      await ApiBase.put(`/users/techs/${editDeletData.id}`, data);
+
+      const response = await ApiBase.get<iResponseApi>("/profile");
 
       const { techs: techsProfile } = response.data;
 
@@ -105,10 +103,9 @@ export const DashboardModal = ({ children }: iDashboardModalProps) => {
 
   const deleteTechApi = async () => {
     try {
-      const deleteTech = await ApiBase.delete(
-        `/users/techs/${editDeletData.id}`
-      );
-      const response = await ApiBase.get("/profile");
+      await ApiBase.delete(`/users/techs/${editDeletData.id}`);
+
+      const response = await ApiBase.get<iResponseApi>("/profile");
 
       const { techs: techsProfile } = response.data;
 

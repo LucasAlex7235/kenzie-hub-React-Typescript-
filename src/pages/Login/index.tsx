@@ -23,7 +23,7 @@ export const LoginUser = () => {
   const { eye, eyePassword, onSubmitFormLogin } = useContext(AuthContext);
 
   window.localStorage.clear();
-  // window.location.reload();
+
   const {
     register,
     handleSubmit,

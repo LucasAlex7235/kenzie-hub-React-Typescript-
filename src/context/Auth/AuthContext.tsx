@@ -60,11 +60,10 @@ export const AuthValidation = ({ children }: iLoginRegister) => {
 
   const onSubmitFormLogin = async (data: iLoginDataBase) => {
     try {
-      const response = await ApiBase.post("/sessions", data);
+      const response = await ApiBase.post<iResponseApi>("/sessions", data);
 
       const { token } = response.data;
-
-      window.localStorage.setItem("@KenzieHub:", token);
+      localStorage.setItem("@KenzieHub:", token);
 
       navigate("/dashboard", { replace: true });
 
@@ -83,7 +82,6 @@ export const AuthValidation = ({ children }: iLoginRegister) => {
   };
 
   const onSubmitFormRegister = (data: iRegisterDataBase) => {
-    console.log(data);
     ApiBase.post("/users", data)
       .then((res) => {
         res.data &&

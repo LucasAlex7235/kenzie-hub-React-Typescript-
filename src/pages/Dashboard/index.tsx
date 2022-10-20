@@ -12,16 +12,12 @@ import {
   SectionTitle,
 } from "./style";
 
-interface iDashboardProps {
-  children: React.ReactNode;
-}
-
 interface iProfileUser {
   name: string;
   course_module: string;
 }
 
-export const DashboardUser = ({ children }: iDashboardProps) => {
+export const DashboardUser = () => {
   const [profile, setProfile] = useState<iProfileUser>();
   const [reload, setReload] = useState(true);
 
@@ -31,7 +27,7 @@ export const DashboardUser = ({ children }: iDashboardProps) => {
     token ? setReload(false) : setReload(true);
 
     const userDash = async () => {
-      const response = await ApiBase.get("/profile");
+      const response = await ApiBase.get<iProfileUser>("/profile");
 
       const { data } = response;
       setProfile(data);
