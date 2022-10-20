@@ -1,6 +1,5 @@
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, Navigate } from "react-router-dom";
-import { AuthContext } from "../../context/Auth/AuthContext";
 import { ApiBase } from "../../service/api";
 import { TodoListProgramming } from "../TodoList";
 import {
@@ -10,12 +9,20 @@ import {
   Header,
   Main,
   ReloadPage,
-  SectionContent,
   SectionTitle,
 } from "./style";
 
-export const DashboardUser = ({ children }) => {
-  const [profile, setProfile] = useState("");
+interface iDashboardProps {
+  children: React.ReactNode;
+}
+
+interface iProfileUser {
+  name: string;
+  course_module: string;
+}
+
+export const DashboardUser = ({ children }: iDashboardProps) => {
+  const [profile, setProfile] = useState<iProfileUser>();
   const [reload, setReload] = useState(true);
 
   const token = window.localStorage.getItem("@KenzieHub:");

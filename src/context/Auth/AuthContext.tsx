@@ -3,9 +3,43 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { ApiBase } from "../../service/api";
 
-export const AuthContext = createContext({});
+interface iLoginRegister {
+  children: React.ReactNode;
+}
 
-export const AuthValidation = ({ children }) => {
+interface iLoginDataBase {
+  email: string;
+  password: string;
+}
+
+interface iRegisterDataBase {
+  name: string;
+  email: string;
+  password: string;
+  confirm_password: string;
+  bio: string;
+  contact: string;
+  course_module: string;
+}
+
+interface iAuthContext {
+  eye: boolean;
+  eyeRegister: boolean;
+  eyePassword: () => void;
+  eyePasswordRegister: () => void;
+  eyeConfirm: boolean;
+  eyePasswordConfirm: () => void;
+  onSubmitFormLogin: (data: iLoginDataBase) => Promise<void>;
+  onSubmitFormRegister: (data: iRegisterDataBase) => void;
+}
+
+interface iResponseApi {
+  token: string;
+}
+
+export const AuthContext = createContext({} as iAuthContext);
+
+export const AuthValidation = ({ children }: iLoginRegister) => {
   const [eye, setEye] = useState(true);
   const [eyeRegister, setEyeRegister] = useState(true);
   const [eyeConfirm, setEyeConfirm] = useState(true);
@@ -24,7 +58,7 @@ export const AuthValidation = ({ children }) => {
 
   const navigate = useNavigate();
 
-  const onSubmitFormLogin = async (data) => {
+  const onSubmitFormLogin = async (data: iLoginDataBase) => {
     try {
       const response = await ApiBase.post("/sessions", data);
 
@@ -48,7 +82,8 @@ export const AuthValidation = ({ children }) => {
     }
   };
 
-  const onSubmitFormRegister = (data) => {
+  const onSubmitFormRegister = (data: iRegisterDataBase) => {
+    console.log(data);
     ApiBase.post("/users", data)
       .then((res) => {
         res.data &&

@@ -3,13 +3,21 @@ import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Link, useNavigate } from "react-router-dom";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { ApiBase } from "../../service/api";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
-
 import { AuthContext } from "../../context/Auth/AuthContext";
+
+interface iErrorValidation {
+  name: string;
+  email: string;
+  password: string;
+  confirm_password: string;
+  bio: string;
+  contact: string;
+  course_module: string;
+}
 
 const validationPasswordRegexLowerCase = /(?=.*[a-z])/;
 const validationPasswordRegexUpperCase = /(?=.*[A-Z])/;
@@ -58,7 +66,7 @@ export const RegisterUser = () => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm({
+  } = useForm<iErrorValidation>({
     resolver: yupResolver(validationSchema),
   });
 

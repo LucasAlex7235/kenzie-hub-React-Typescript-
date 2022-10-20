@@ -3,13 +3,24 @@ import { AiOutlineClose } from "react-icons/ai";
 import { useForm } from "react-hook-form";
 import { ToastContainer } from "react-toastify";
 import { DashboardContext } from "../../context/Dashboard/DashboardContext";
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import "animate.css";
+
+interface iEvent {
+  event: {
+    target: {
+      id: string;
+    };
+  };
+}
+
+interface iSubmitFormNewTech {
+  title: string;
+  status: string;
+}
 
 export const ModalAddList = () => {
   const {
-    techs,
-    setTechs,
     editTech,
     onSubmitModal,
     editDeletData,
@@ -18,15 +29,14 @@ export const ModalAddList = () => {
     setModalAdd,
   } = useContext(DashboardContext);
 
-  const [modalError, setModalError] = useState(false);
+  const { register, handleSubmit } = useForm<iSubmitFormNewTech>();
 
-  const { register, handleSubmit } = useForm();
-
-  const closeModal = (e) => {
-    e.target.id && setModalAdd(null);
+  const closeModal = ({ event }: iEvent) => {
+    event.target.id && setModalAdd(null);
   };
+
   return (
-    <ModalBackground id="backgroudModal" onClick={closeModal}>
+    <ModalBackground id="backgroudModal" onClick={() => closeModal}>
       <Modal>
         <header>
           <h3>Cadastrar Tecnologia</h3>
