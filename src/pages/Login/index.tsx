@@ -1,4 +1,4 @@
-import { Conatiner, ContainerPassword, FormLogin } from "./style";
+import { Conatiner, FormLogin } from "./style";
 import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -8,6 +8,11 @@ import "react-toastify/dist/ReactToastify.css";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import { useContext } from "react";
 import { AuthContext } from "../../context/Auth/AuthContext";
+
+interface iErrorValidation {
+  email: string;
+  password: string;
+}
 
 const validationSchema = yup.object().shape({
   email: yup.string().required("Email obrigatório").email("Email inválido!"),
@@ -23,7 +28,7 @@ export const LoginUser = () => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm({
+  } = useForm<iErrorValidation>({
     resolver: yupResolver(validationSchema),
   });
 
@@ -33,13 +38,15 @@ export const LoginUser = () => {
       <FormLogin onSubmit={handleSubmit(onSubmitFormLogin)}>
         <h2>Login</h2>
         <div>
-          <label>Email</label>
-          <input
-            type="text"
-            placeholder="Digite seu email"
-            {...register("email")}
-          />
-          {errors.email?.message && <span>{errors.email.message}</span>}
+          <>
+            <label>Email</label>
+            <input
+              type="text"
+              placeholder="Digite seu email"
+              {...register("email")}
+            />
+            {errors.email?.message && <span>{errors.email.message}</span>}
+          </>
         </div>
 
         <div>

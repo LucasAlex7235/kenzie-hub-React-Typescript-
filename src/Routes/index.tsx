@@ -11,7 +11,10 @@ export const RoutesUrl = () => {
       <Route path="/login" element={<LoginUser />} />
       <Route path="/register" element={<RegisterUser />} />
 
-      <Route path="/dashboard" element={<DashboardUser />} />
+      <Route
+        path="/dashboard"
+        element={<DashboardUser children={undefined} />}
+      />
 
       <Route path="*" element={<Navigate to="/login" />} />
     </Routes>

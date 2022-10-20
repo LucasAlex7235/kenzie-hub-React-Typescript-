@@ -31,7 +31,7 @@ export const TodoListProgramming = () => {
           techs.map((tech) => {
             return (
               <li
-                class="animate__animated animate__fadeIn"
+                className="animate__animated animate__fadeIn"
                 onClick={() => {
                   editModal();
                   setEditDeletData(tech);
